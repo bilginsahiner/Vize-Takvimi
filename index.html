@@ -263,7 +263,26 @@
 
     setInterval(updateExams, 10000);
     window.onload = updateExams;
+
+    // --- PWA VE ÇEVRİMDIŞI ÇALIŞMA KODU (Ders programındaki ile aynı yapı) ---
+    if ('serviceWorker' in navigator) {
+        const swCode = `
+            const CACHE_NAME = 'vize-takvimi-cache-v1';
+            const ASSETS = [window.location.href];
+            self.addEventListener('install', (e) => {
+                e.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(ASSETS)));
+            });
+            self.addEventListener('fetch', (e) => {
+                e.respondWith(caches.match(e.request).then(res => res || fetch(e.request)));
+            });
+        `;
+        const blob = new Blob([swCode], {type: 'application/javascript'});
+        const swUrl = URL.createObjectURL(blob);
+        navigator.serviceWorker.register(swUrl);
+    }
 </script>
+
+<link rel="manifest" href="data:application/json;base64,ewogICJub21lIjogIlZpemUgU8SxbmF2IFByb2dyYW3EsSIsCiAgInNob3J0X25hbWUiOiAiVml6ZSIsCiAgInN0YXJ0X3VybCI6ICIuIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjMDAwMDAwIiwKICAidGhlbWVfY29sb3IiOiAiIzAwMDAwMCIsCiAgImljb25zIjogW3sgInNyYyI6ICJ2aXplLWlrb24ucG5nIiwgInNpemVzIjogIjE5MngxOTIiLCAidHlwZSI6ICJpbWFnZS9wbmciIH1dCn0=">
 
 </body>
 </html>
