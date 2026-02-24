@@ -1,220 +1,223 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Vize Sınav Programı</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Vize Sınav Programı</title>
 
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Vize Takvimi">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Vize Takvimi">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#000000">
 
-<link rel="apple-touch-icon" href="vize-ikon.png">
-<link rel="icon" type="image/png" href="vize-ikon.png">
-<style>
-    :root {
-        --bg: #000000;
-        --card: #121212;
-        --border: #222222;
-        --accent: #ffffff;
-        --secondary: #a0a0a0;
-        --highlight: #1a1a1a;
-        --verified-blue: #0095f6;
-        --drawer-width: 260px;
-    }
-    body { 
-        font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        background-color: var(--bg); color: var(--accent);
-        margin: 0; padding: 10px; display: flex; flex-direction: column; align-items: center;
-        min-height: 100vh;
-    }
+    <link rel="apple-touch-icon" href="vize-ikon.png">
+    <link rel="icon" type="image/png" href="vize-ikon.png">
+    <style>
+        :root {
+            --bg: #000000;
+            --card: #121212;
+            --border: #222222;
+            --accent: #ffffff;
+            --secondary: #a0a0a0;
+            --highlight: #1a1a1a;
+            --verified-blue: #0095f6;
+            --drawer-width: 260px;
+        }
+        body { 
+            font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg); color: var(--accent);
+            margin: 0; padding: 0 10px 10px 10px; display: flex; flex-direction: column; align-items: center;
+            min-height: 100vh;
+        }
 
-    /* --- MENU STYLES --- */
-    .menu-btn {
-        position: fixed; top: 20px; left: 20px; z-index: 1001;
-        background: var(--card); border: 1px solid var(--border);
-        border-radius: 8px; padding: 8px; cursor: pointer;
-        display: flex; align-items: center; justify-content: center;
-    }
-    
-    .side-drawer {
-        position: fixed; top: 0; left: calc(-1 * var(--drawer-width));
-        width: var(--drawer-width); height: 100%;
-        background: var(--card); border-right: 1px solid var(--border);
-        z-index: 1002; transition: 0.3s ease-in-out;
-        padding: 60px 20px; box-sizing: border-box;
-    }
-    
-    .side-drawer.open { left: 0; }
-    
-    .drawer-overlay {
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0,0,0,0.7); z-index: 1001;
-        display: none; backdrop-filter: blur(4px);
-    }
-    
-    .drawer-overlay.show { display: block; }
-    
-    .menu-item {
-        display: flex; align-items: center; gap: 12px;
-        padding: 15px; border-radius: 10px;
-        color: var(--accent); text-decoration: none;
-        font-size: 0.85rem; margin-bottom: 10px;
-        transition: background 0.2s; border: 1px solid transparent;
-        font-weight: 500;
-    }
-    
-    .menu-item:hover { background: var(--highlight); border-color: var(--border); }
-    .menu-item svg { width: 20px; height: 20px; stroke: var(--accent); }
+        /* --- MENU STYLES --- */
+        header { 
+            position: sticky; top: 0; z-index: 1000;
+            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            padding: 15px 0; border-bottom: 1px solid var(--border); margin-bottom: 25px;
+            width: 100vw; display: flex; align-items: center; justify-content: center;
+        }
 
-    /* AKTİF SAYFA (Vize Takvimi) RENKLİ */
-    .vize-link-special {
-        background: linear-gradient(45deg, #1a1a1a, #2c1e4a);
-        border: 1px solid #4b307d !important;
-    }
+        .menu-btn {
+            position: absolute; left: 15px; z-index: 1001;
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 8px; padding: 7px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+        
+        .side-drawer {
+            position: fixed; top: 0; left: calc(-1 * var(--drawer-width));
+            width: var(--drawer-width); height: 100%;
+            background: var(--card); border-right: 1px solid var(--border);
+            z-index: 1002; transition: 0.3s ease-in-out;
+            padding: 60px 20px; box-sizing: border-box;
+        }
+        
+        .side-drawer.open { left: 0; }
+        
+        .drawer-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7); z-index: 1001;
+            display: none; backdrop-filter: blur(4px);
+        }
+        
+        .drawer-overlay.show { display: block; }
+        
+        .menu-item {
+            display: flex; align-items: center; gap: 12px;
+            padding: 15px; border-radius: 10px;
+            color: var(--accent); text-decoration: none;
+            font-size: 0.85rem; margin-bottom: 10px;
+            transition: background 0.2s; border: 1px solid transparent;
+            font-weight: 500;
+        }
+        
+        .menu-item:hover { background: var(--highlight); border-color: var(--border); }
+        .menu-item svg { width: 20px; height: 20px; stroke: var(--accent); fill: none; }
 
-    .plain-link {
-        background: transparent;
-        border: 1px solid transparent;
-    }
+        .vize-link-special {
+            background: linear-gradient(45deg, #1a1a1a, #2c1e4a);
+            border: 1px solid #4b307d !important;
+        }
 
-    /* --- CONTENT STYLES --- */
-    .container { width: 100%; max-width: 400px; box-sizing: border-box; padding-bottom: 100px; }
-    header { padding: 25px 0; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
-    h1 { font-size: 0.9rem; font-weight: 300; letter-spacing: 5px; margin: 0; text-transform: uppercase; text-align: center; display: flex; align-items: center; justify-content: center; gap: 10px; }
-    
-    .day-block { background: var(--card); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 15px; overflow: hidden; }
-    .day-header { 
-        background: var(--highlight); padding: 12px 15px; font-size: 0.75rem; font-weight: 700; 
-        letter-spacing: 1px; border-bottom: 1px solid var(--border); color: var(--accent);
-        display: flex; justify-content: space-between; align-items: center;
-    }
-    
-    .day-icon { width: 20px; height: 20px; margin-right: 10px; display: flex; align-items: center; justify-content: center; }
-    .day-icon svg { stroke: white; }
-    .active-ring svg { animation: ring 4s ease-in-out infinite; }
-    
-    .active-day-shimmer {
-        background: linear-gradient(-90deg, #ffffff 0%, #ffffff 35%, #ffd700 50%, #ffffff 65%, #ffffff 100%);
-        background-size: 200% auto;
-        -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
-        animation: reverseShimmer 7s linear infinite;
-    }
+        /* --- CONTENT STYLES --- */
+        .container { width: 100%; max-width: 400px; box-sizing: border-box; padding-bottom: 100px; }
+        
+        h1 { 
+            font-size: 0.85rem; font-weight: 300; letter-spacing: 4px; margin: 0; 
+            text-transform: uppercase; text-align: center; display: flex; 
+            align-items: center; justify-content: center; gap: 10px; 
+        }
+        
+        .day-block { background: var(--card); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 15px; overflow: hidden; }
+        .day-header { 
+            background: var(--highlight); padding: 12px 15px; font-size: 0.75rem; font-weight: 700; 
+            letter-spacing: 1px; border-bottom: 1px solid var(--border); color: var(--accent);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        
+        .day-icon { width: 20px; height: 20px; margin-right: 10px; display: flex; align-items: center; justify-content: center; }
+        .day-icon svg { stroke: white; }
+        .active-ring svg { animation: ring 4s ease-in-out infinite; }
+        
+        .active-day-shimmer {
+            background: linear-gradient(-90deg, #ffffff 0%, #ffffff 35%, #ffd700 50%, #ffffff 65%, #ffffff 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
+            animation: reverseShimmer 7s linear infinite;
+        }
 
-    .time-now {
-        font-weight: bold !important;
-        background: linear-gradient(120deg, #ffffff 40%, #2ecc71 50%, #ffffff 60%);
-        background-size: 200% auto;
-        -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
-        animation: reverseShimmer 4s linear infinite;
-    }
+        .time-now {
+            font-weight: bold !important;
+            background: linear-gradient(120deg, #ffffff 40%, #2ecc71 50%, #ffffff 60%);
+            background-size: 200% auto;
+            -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
+            animation: reverseShimmer 4s linear infinite;
+        }
 
-    .time-past {
-        text-decoration: line-through;
-        font-weight: bold !important;
-        background: linear-gradient(120deg, #ff4d4d 40%, #ff0000 50%, #ff4d4d 60%);
-        background-size: 200% auto;
-        -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
-        animation: reverseShimmer 5s linear infinite;
-        opacity: 0.7;
-    }
+        .time-past {
+            text-decoration: line-through;
+            font-weight: bold !important;
+            background: linear-gradient(120deg, #ff4d4d 40%, #ff0000 50%, #ff4d4d 60%);
+            background-size: 200% auto;
+            -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
+            animation: reverseShimmer 5s linear infinite;
+            opacity: 0.7;
+        }
 
-    @keyframes ring {
-        0%, 25%, 100% { transform: rotate(0); }
-        5% { transform: rotate(15deg); }
-        10% { transform: rotate(-15deg); }
-    }
+        @keyframes ring {
+            0%, 25%, 100% { transform: rotate(0); }
+            5% { transform: rotate(15deg); }
+            10% { transform: rotate(-15deg); }
+        }
 
-    @keyframes reverseShimmer {
-        0% { background-position: 200% center; }
-        100% { background-position: -200% center; }
-    }
+        @keyframes reverseShimmer {
+            0% { background-position: 200% center; }
+            100% { background-position: -200% center; }
+        }
 
-    .session { padding: 15px; border-bottom: 1px solid #1a1a1a; }
-    .session:last-child { border-bottom: none; }
-    .time { font-size: 0.7rem; color: var(--secondary); font-family: monospace; display: block; margin-bottom: 2px; }
-    .name { font-size: 0.85rem; font-weight: 400; color: #e0e0e0; }
-    .alttan { color: #ffd700; font-weight: bold; font-size: 0.7rem; margin-left: 4px; }
+        .session { padding: 15px; border-bottom: 1px solid #1a1a1a; }
+        .session:last-child { border-bottom: none; }
+        .time { font-size: 0.7rem; color: var(--secondary); font-family: monospace; display: block; margin-bottom: 2px; }
+        .name { font-size: 0.85rem; font-weight: 400; color: #e0e0e0; }
+        .alttan { color: #ffd700; font-weight: bold; font-size: 0.7rem; margin-left: 4px; }
 
-    .ghost-purple-shimmer {
-        text-align: center; font-size: 0.65rem; font-weight: 500; letter-spacing: 2px;
-        padding: 40px 20px; text-transform: uppercase;
-        background: linear-gradient(120deg, rgba(255,255,255,1) 40%, rgba(138,43,226,0.5) 50%, rgba(255,255,255,1) 60%);
-        background-size: 200% auto; -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
-        animation: reverseShimmer 7s linear infinite;
-    }
+        .ghost-purple-shimmer {
+            text-align: center; font-size: 0.65rem; font-weight: 500; letter-spacing: 2px;
+            padding: 40px 20px; text-transform: uppercase;
+            background: linear-gradient(120deg, rgba(255,255,255,1) 40%, rgba(138,43,226,0.5) 50%, rgba(255,255,255,1) 60%);
+            background-size: 200% auto; -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
+            animation: reverseShimmer 7s linear infinite;
+        }
 
-    .footer-signature {
-        position: fixed; bottom: 15px; right: 15px; display: flex; align-items: center; gap: 4px;
-        background: rgba(18, 18, 18, 0.9); padding: 8px 14px; border-radius: 50px;
-        border: 1px solid var(--border); backdrop-filter: blur(10px); z-index: 999;
-    }
+        .footer-signature {
+            position: fixed; bottom: 15px; right: 15px; display: flex; align-items: center; gap: 4px;
+            background: rgba(18, 18, 18, 0.9); padding: 8px 14px; border-radius: 50px;
+            border: 1px solid var(--border); backdrop-filter: blur(10px); z-index: 999;
+        }
 
-    .shimmer-box {
-        display: flex; align-items: center; gap: 6px;
-        background: linear-gradient(-90deg, #ffffff 0%, #ffffff 35%, #ffd700 50%, #ffffff 65%, #ffffff 100%);
-        background-size: 200% auto; -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
-        animation: reverseShimmer 7s linear infinite;
-    }
+        .shimmer-box {
+            display: flex; align-items: center; gap: 6px;
+            background: linear-gradient(-90deg, #ffffff 0%, #ffffff 35%, #ffd700 50%, #ffffff 65%, #ffffff 100%);
+            background-size: 200% auto; -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
+            animation: reverseShimmer 7s linear infinite;
+        }
 
-    .sig-label { font-size: 0.6rem; font-weight: 400; }
-    .sig-name { font-size: 0.7rem; font-weight: 600; }
-    .ig-icon { width: 14px; height: 14px; fill: white; }
-    .v-icon { fill: var(--verified-blue) !important; width: 12px; height: 12px; }
-</style>
+        .sig-label { font-size: 0.6rem; font-weight: 400; }
+        .sig-name { font-size: 0.7rem; font-weight: 600; }
+        .ig-icon { width: 14px; height: 14px; fill: white; }
+        .v-icon { fill: var(--verified-blue) !important; width: 12px; height: 12px; }
+    </style>
 </head>
 <body>
-
-<div class="menu-btn" onclick="toggleMenu()">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round">
-        <line x1="3" y1="12" x2="21" y2="12"></line>
-        <line x1="3" y1="6" x2="21" y2="6"></line>
-        <line x1="3" y1="18" x2="21" y2="18"></line>
-    </svg>
-</div>
 
 <div class="drawer-overlay" id="overlay" onclick="toggleMenu()"></div>
 
 <div class="side-drawer" id="drawer">
-    <a href="https://bilginsahiner.github.io/Ders-Programi/" class="menu-item plain-link">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+    <a href="https://bilginsahiner.github.io/Ders-Programi/" class="menu-item">
+        <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
         Ders Programı
     </a>
-    <a href="https://bilginsahiner.github.io/Ramazan-Programi/" class="menu-item plain-link">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+    <a href="https://bilginsahiner.github.io/Ramazan-Programi/" class="menu-item">
+        <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
         Ramazan Programı
     </a>
     <a href="#" class="menu-item vize-link-special" onclick="toggleMenu()">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+        <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
         Vize Takvimi
     </a>
-
-<a href="https://bilginsahiner.github.io/Final-Takvimi/" class="menu-item plain-link">
-    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M9 11l3 3L22 4"></path>
-        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
-    </svg>
-    Final Takvimi
-</a>
-
+    <a href="https://bilginsahiner.github.io/Final-Takvimi/" class="menu-item">
+        <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+        Final Takvimi
+    </a>
+    <a href="https://bilginsahiner.github.io/Tasavvuf-Metinleri/" class="menu-item">
+        <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+        Tasavvuf Metinleri
+    </a>
 </div>
 
-<div class="container">
-    <header>
-        <h1>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="3" y="5" width="18" height="16" rx="3" stroke="white" stroke-width="1.5" fill="white" fill-opacity="0.1"/>
-                <path d="M3 10H21" stroke="white" stroke-width="1.5"/>
-                <path d="M8 3V7" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-                <path d="M16 3V7" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-                <path d="M12 14V18M10 16H14" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-            VİZE SINAV PROGRAMI
-        </h1>
-    </header>
+<header>
+    <div class="menu-btn" onclick="toggleMenu()">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </div>
+    <h1>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="5" width="18" height="16" rx="3" stroke="white" stroke-width="1.5" fill="white" fill-opacity="0.1"/>
+            <path d="M3 10H21" stroke="white" stroke-width="1.5"/>
+            <path d="M8 3V7" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M16 3V7" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M12 14V18M10 16H14" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        VİZE SINAV PROGRAMI
+    </h1>
+</header>
 
+<div class="container">
     <div class="day-block" id="day-20260328">
         <div class="day-header">
             <div style="display:flex; align-items:center;">
@@ -356,22 +359,6 @@
 
     setInterval(updateExams, 15000);
     window.onload = updateExams;
-
-    if ('serviceWorker' in navigator) {
-        const swCode = `
-            const CACHE_NAME = 'vize-takvimi-cache-v2';
-            const ASSETS = [window.location.href];
-            self.addEventListener('install', (e) => {
-                e.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(ASSETS)));
-            });
-            self.addEventListener('fetch', (e) => {
-                e.respondWith(caches.match(e.request).then(res => res || fetch(e.request)));
-            });
-        `;
-        const blob = new Blob([swCode], {type: 'application/javascript'});
-        const swUrl = URL.createObjectURL(blob);
-        navigator.serviceWorker.register(swUrl);
-    }
 </script>
 
 </body>
